@@ -622,14 +622,8 @@ export class LaTeXRenderer {
       return char;
     }).join('');
     
-    // 如果结果中有无法映射的字符，检测是否含有非上标字符
-    const hasUnmapped = simplified.split('').some(char => !SUPERSCRIPT_MAP[char]);
-    if (hasUnmapped && simplified.length > 1) {
-      // 对于复杂上标内容，用紧凑格式标记
-      return '⁽' + result + '⁾';
-    }
-    
-    return result;
+    // 此分支含有无法映射的字符；单字符也必须保留上标关系。
+    return '⁽' + result + '⁾';
   }
 
   /**
